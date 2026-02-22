@@ -11,15 +11,16 @@ import android.speech.SpeechRecognizer
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import kotlinx.android.synthetic.main.activity_main.*
-
+import jp.kaleidot725.sample.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private var speechRecognizer : SpeechRecognizer? = null
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val granted = ContextCompat.checkSelfPermission(this, RECORD_AUDIO)
         if (granted != PackageManager.PERMISSION_GRANTED) {
@@ -27,11 +28,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(applicationContext)
-        speechRecognizer?.setRecognitionListener(createRecognitionListenerStringStream { recognize_text_view.text = it })
-        recognize_start_button.setOnClickListener {
+        speechRecognizer?.setRecognitionListener(createRecognitionListenerStringStream {
+            binding.recognizeTextView.text = it
+        })
+        binding.recognizeStartButton.setOnClickListener {
             speechRecognizer?.startListening(Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH))
         }
-        recognize_stop_button.setOnClickListener { speechRecognizer?.stopListening() }
+        binding.recognizeStopButton.setOnClickListener { speechRecognizer?.stopListening() }
     }
 
     override fun onDestroy() {
