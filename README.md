@@ -1,3 +1,9 @@
+forked from [kaleidot725-android/speech_recognizer](https://github.com/kaleidot725-android/speech_recognizer), updated to run on Android SDK (API level) 34 (2026/02/22)
+
+以下、フォーク元のREADMEです
+
+<br>
+
 # 2020/06/08 ［Android］音声入力はわりと簡単に実装できる（ Speech Recognizer ）
 
 # はじめに
